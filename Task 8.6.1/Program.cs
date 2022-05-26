@@ -11,14 +11,24 @@ namespace Task_8._6._1
             string Path = Console.ReadLine();
             try
             {
+                
                 DirectoryInfo dirInfo = new DirectoryInfo(Path);
                 if (dirInfo.Exists)
                 {
-                    foreach (FileInfo file in dirInfo.GetFiles())
-                        file.Delete();
+                    
+                    foreach (var item in dirInfo.GetFiles())
+                    {
+                        if (DateTime.Now - item.LastAccessTime  > TimeSpan.FromMinutes(1))
+                        {
+                            item.Delete();
+                        }
+                    }
                     foreach (DirectoryInfo dir in dirInfo.GetDirectories())
                     {
-                        dir.Delete(true);
+                        if (DateTime.Now - dir.LastAccessTime > TimeSpan.FromMinutes(1))
+                        {
+                            dir.Delete(true);
+                        }
                     }
                     Console.WriteLine("Файлы и папки успешно удалены");
                 }
@@ -28,8 +38,8 @@ namespace Task_8._6._1
                 }
                 
             }
-            
-             catch (Exception e)
+
+            catch (UnauthorizedAccessException e)
             {
                 Console.WriteLine(e.Message);
 
