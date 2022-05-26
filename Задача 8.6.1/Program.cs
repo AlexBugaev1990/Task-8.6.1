@@ -18,14 +18,14 @@ namespace Task_8._6._1
                     
                     foreach (var item in dirInfo.GetFiles())
                     {
-                        if (DateTime.Now - item.LastAccessTime  > TimeSpan.FromMinutes(1))
+                        if (DateTime.Now - item.LastAccessTime  > TimeSpan.FromMinutes(30))
                         {
                             item.Delete();
                         }
                     }
                     foreach (DirectoryInfo dir in dirInfo.GetDirectories())
                     {
-                        if (DateTime.Now - dir.LastAccessTime > TimeSpan.FromMinutes(1))
+                        if (DateTime.Now - dir.LastAccessTime > TimeSpan.FromMinutes(30))
                         {
                             dir.Delete(true);
                         }
